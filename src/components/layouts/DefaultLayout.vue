@@ -6,7 +6,12 @@
       <!-- Page Header -->
       <div class="page-wrapper">
       <!-- <page-header></page-header> -->
-        <router-view></router-view>
+        <!-- <router-view></router-view> -->
+        <div class="app-layout-main">
+          <div class="column is-8">
+            <slot/>          
+          </div>
+        </div>
       </div>
       <!-- App Footer -->
       <v-footer height="auto" class="white pa-3 app--footer">

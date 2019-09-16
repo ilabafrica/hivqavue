@@ -155,27 +155,53 @@ const Menu = [
     name: "Dashboard"
   },
   {
-    title: "Chat",
+    title: "Facilities",
     group: "apps",
     icon: "chat_bubble",
-    target: "_blank",
-    name: "Chat"
+    target: "facilities",
+    name: "Facilities"
   },
   {
-    title: "Inbox",
+    title: "Service Delivery Points",
     group: "apps",
-    name: "Mail",
-    target: "_blank",
+    name: "SDP",
+    target: "sdp",
     icon: "email"
   },
-  { header: "CMS" },
+  { header: "Surveys" },
   {
-    title: "List & Query",
-    group: "layout",
-    icon: "view_compact",
-    items: [{ name: "", title: "Basic Table", component: "" }]
-  }
-
+    title: "HTC Lab Regiter",
+    group: "surveys",
+    icon: "dashboard",
+    target: "htc_collected_data",
+    name: "HTC_Collected_Data"
+  },
+  {
+    title: "SPI-RT Checklist",
+    group: "surveys",
+    icon: "chat_bubble",
+    target: "spi_collected_data",
+    name: "SPI_Collected_Data"
+  },
+  { header: "Settings" },
+  {
+    title: "Users",
+    group: "apps",
+    
+    icon: "email"
+  },
+  {
+    title: "Permissions",
+    group: "settings",
+    
+    icon: "email"
+  },
+  {
+    title: "Access Controls",
+    group: "settings",
+    
+    icon: "email"
+  },
 ]
 // reorder menu
 Menu.forEach(item => {
