@@ -20,7 +20,7 @@ const ifNotAuthenticated = (to, from, next) => {
     next()
     return
   }
-    next('/')
+    next('/auth')
 }
 
 const ifAuthenticated = (to, from, next) => {
@@ -28,7 +28,7 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('/auth/login')
+  next('/dashboard')
 }
 
 export default new Router({
@@ -84,7 +84,7 @@ export default new Router({
       beforeEnter: ifNotAuthenticated,
     },
     {
-      path: '/',
+      path: '/dashboard',
       component: DefaultLayout,
       meta: {title: "Dashboard"},
       //beforeEnter: ifAuthenticated,

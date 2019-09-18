@@ -1,6 +1,6 @@
 <template>
-	
-	<div id="inspire"> 
+
+	<div id="inspire">
 	<v-card class="elevation-3" id="login-card">
 		<v-snackbar v-model="snackbar" :timeout="4000" top color="success">
 			<span>Account Created. We've sent you an activation link via email.</span>
@@ -101,15 +101,15 @@
 	      passwordConfirmRules: [
 	      	v => !!v || 'Password Confirm is required'
 	      ],
-	      
+
 	      nameRules: [
 	        v => !!v || 'Name is required'
 	      ],
-	      
+
 	      passwordRules: [
 	        v => !!v || 'Password is required'
 	      ],
-	      
+
 	      emailRules: [
 	        v => !!v || 'E-mail is required',
 	        v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -133,6 +133,9 @@
           .then(resp => {
           	this.loading = false;
             this.snackbar = true;
+            setTimeout(() => {
+              this.$router.push("/auth/login")
+              }, 5000)
           })
           .catch(error => {
           	this.loading = false;
