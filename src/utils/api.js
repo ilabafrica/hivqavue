@@ -1,7 +1,6 @@
 import axios from 'axios'
-const base_url ="http://hivqa.local"
+const base_url ="http://localhost/hivqa-backend/public/api/"
 const apiCall = ({url, data, method}) => new Promise((resolve, reject) => {
-  console.log(url)
   url = base_url+url
   setTimeout(() => {
     try {

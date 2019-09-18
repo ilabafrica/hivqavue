@@ -1,4 +1,4 @@
-# refugee_frontend
+# hivqa_frontend
 
 ## Project setup
 ```
