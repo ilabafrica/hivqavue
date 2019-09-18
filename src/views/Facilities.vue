@@ -164,15 +164,7 @@
     methods: {
       getOrgunits() {
         //get api end point
-        apiCall({url: "org_units", method: "GET"})
-            // .then(response => {
-            //     Vue.set(this.orgunits_list, "data", response.data.data)
-            //     console.log("Counties request", response)
-            // })
-            // .catch(error => {
-            //     console.log("Error is ", error.response)
-            // })
-            .then(response => (this.orgunits_list = response.data))
+        apiCall({url: "org_units", method: "GET"}).then(response => (this.orgunits_list = response.data))
       },
 
     }

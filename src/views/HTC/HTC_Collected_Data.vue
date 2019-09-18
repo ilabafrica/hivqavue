@@ -3,10 +3,9 @@
   <div class="dashboard">
 
     <v-container class="my-5">      
-      <h1 class="subheading grey--text">Home/Surveys/HTC Register Checklist</h1>
+      <h1 class="subheading grey--text">Home/Surveys/HTC Register Checklist/Collected Data</h1>
         <v-layout row wrap>
-          <h2 class="subheading ">Collected Data</h2>
-            <v-btn class="primary">Fill Questionaire</v-btn>
+            <v-btn class="primary" to="htc_questionnaire">Fill Questionaire</v-btn>
             <v-btn class="success">View Reports</v-btn>
             <v-btn class="info">Import Collected Data</v-btn>
           <v-data-table :headers="headers":items="desserts" :items-per-page="5" class="elevation-1"></v-data-table>
@@ -21,6 +20,7 @@
 
 <script>
   import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
+  import apiCall from '@/utils/api';
 
   export default {
     components: {

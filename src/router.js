@@ -73,13 +73,13 @@ export default new Router({
     },
     {
       path: '/htc_collected_data',
-      name: 'HTC_Collected_Data',
+      name: 'htc_collected_data',
       component: HTC_Collected_Data,
       beforeEnter: ifNotAuthenticated,
     },
     {
       path: '/htc_questionnaire',
-      name: 'HTC_Questionnaire',
+      name: 'htc_questionnaire',
       component: HTC_Questionnaire,
       beforeEnter: ifNotAuthenticated,
     },

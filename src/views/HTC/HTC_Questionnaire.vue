@@ -7,7 +7,7 @@
 
       <v-row > 
           <v-col class="lg12">
-            <v-btn class="primary">View Collected Data</v-btn>
+            <v-btn class="primary" to = "htc_collected_data" >View Collected Data</v-btn>
             <v-btn class="success">View Reports</v-btn>
             <v-btn class="info">Import Collected Data</v-btn>
           </v-col>
@@ -16,53 +16,20 @@
         <v-row>
           <v-col class="lg12">
           <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="name":counter="10":rules="nameRules"
-        label="Name"
-        required
-      ></v-text-field>
-  
-      <v-text-field
-        v-model="email"
-        :rules="emailRules"
-        label="E-mail"
-        required
-      ></v-text-field>
-  
-      <v-select
-        v-model="select"
-        :items="items"
-        :rules="[v => !!v || 'Item is required']"
-        label="Item"
-        required
-      ></v-select>
-  
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[v => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
-  
-      <v-btn
-        :disabled="!valid"
-        color="success"
-        class="mr-4"
-      >
-        Validate
-      </v-btn>
-  
-      <v-btn
-        color="error"
-        class="mr-4"
-      >
-        Reset Form
-      </v-btn>
-  
-      <v-btn
-        color="warning"
-      >
-        Reset Validation
-      </v-btn>
+            <div v-for="question in questions">
+              {{question.name}}
+              <v-text-field v-if ="question.question_type ==2"  :counter="10":rules="nameRules" required ></v-text-field>
+              <v-radio-group v-else-if ="question.question_type ==0" >
+                <v-radio label="Yes"></v-radio>
+                <v-radio label="No"></v-radio>
+                <v-radio label="Partial"></v-radio>
+              </v-radio-group>
+              <v-textarea v-else-if ="question.question_type ==3" hint="Add a comment" ></v-textarea>
+            </div>
+
+      <v-btn :disabled="!valid" color="success" class="mr-4" > Validate </v-btn>
+      <v-btn color="error" class="mr-4" > Reset Form </v-btn>
+      <v-btn color="warning" > Submit </v-btn>
     </v-form>
     </v-col>
         </v-row>
@@ -76,6 +43,7 @@
 
 <script>
   import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
+  import apiCall from '@/utils/api';
 
   export default {
     // vuetify: new Vuetify(),
@@ -83,37 +51,12 @@
       'app-layout': DefaultLayout,
     },
     mounted(){
-      console.log(this.$state)
+      this.getQuestions();
     },
     data () {
     return {
-      headers: [
-        {
-          text: 'QA Officer',
-          align: 'left',
-          sortable: false,
-          value: 'name',
-        },
-        { text: 'Facility', value: 'fat' },
-        { text: 'SDP', value: 'carbs' },
-        { text: 'Action', value: 'protein' },
-      ],
-      desserts: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        }
-      ],
+      questions: '',
+
       valid: true,
     name: '',
     nameRules: [
@@ -136,6 +79,10 @@
     }
     },
     methods: {
+      getQuestions() {
+        //get api end point
+        apiCall({url: "question_per_checklist/1", method: "GET"}).then(response => (this.questions = response.data))
+      },
     validate () {
       // if (this.$refs.form.validate()) {
       //   this.snackbar = true
