@@ -108,7 +108,7 @@ export default {
       type: [Number, String],
       default: "260"
     },
-    showDrawer: Boolean
+    showDrawer: true
   },
   data() {
     return {
@@ -187,19 +187,19 @@ const Menu = [
   {
     title: "Users",
     group: "apps",
-    
+
     icon: "email"
   },
   {
     title: "Permissions",
     group: "settings",
-    
+
     icon: "email"
   },
   {
     title: "Access Controls",
     group: "settings",
-    
+
     icon: "email"
   },
 ]

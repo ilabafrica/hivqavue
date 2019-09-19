@@ -9,7 +9,7 @@
         <!-- <router-view></router-view> -->
         <div class="app-layout-main">
           <div class="column is-8">
-            <slot/>          
+            <slot/>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default {
 
   data() {
     return {
-      showDrawer: true
+      showDrawer: false
     }
   },
   methods: {
