@@ -4,7 +4,7 @@ import { USER_REQUEST } from '../actions/user'
 import apiCall from '../../utils/api'
 
 const state = {
-  token:localStorage.getItem('access_token') || '',
+  token:localStorage.getItem('access_token') || null,
   status: '',
   hasLoadedOnce: false
 
@@ -23,10 +23,9 @@ const actions = {
       apiCall({url: '/api/login', data: user, method: 'POST'})
       .then(resp => {
         commit(AUTH_SUCCESS, resp)
-        console.log(resp.access_token)
         localStorage.setItem('access_token', 'Bearer ' + resp.access_token)
         // dispatch(USER_REQUEST)
-        console.log(resp.access_token)
+        // console.log(resp.access_token)
         resolve(resp)
       }).catch(err => {
         commit(AUTH_ERROR, err)
@@ -37,9 +36,19 @@ const actions = {
   },
   [AUTH_LOGOUT]: ({commit, dispatch}) => {
     return new Promise((resolve, reject) => {
+
+      apiCall({url: '/api/logout',data: '', method:'POST'})
+       .then(resp => {
+        console.log(resp)
       commit(AUTH_LOGOUT)
       localStorage.removeItem('access_token')
-      resolve()
+      resolve(resp)
+
+    }).catch(err => {
+        commit(AUTH_LOGOUT)
+        localStorage.removeItem('access_token')
+        reject(err)
+     })
     })
   }
 }
@@ -58,7 +67,7 @@ const mutations = {
     state.hasLoadedOnce = true
   },
   [AUTH_LOGOUT]: (state) => {
-    state.token = ''
+    state.token = null
   }
 }
 

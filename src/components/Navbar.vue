@@ -62,11 +62,11 @@
 <script>
 	import Popup from './Popup'
   	import { AUTH_LOGOUT } from '../store/actions/auth'
-export default {
+    export default {
 	components: {
 		Popup
 	},
-	data(){
+	data: () => {
 		return{
 			drawer: true,
 			links: [
@@ -75,11 +75,17 @@ export default {
 				{icon: 'person', text: 'Team', route: '/team'},
 			],
 			snackbar: false
-		}
+		};
 	},
 	methods: {
       signOut: function () {
-        this.$store.dispatch(AUTH_LOGOUT).then(() => this.$router.push('/auth'))
+        this.$store.dispatch(AUTH_LOGOUT)
+        .then((response) => {
+        	setTimeout(() => {
+        	console.log(response)
+        	this.$router.push('/auth')
+        	}, 4000)
+        })
       },
     },
 }
