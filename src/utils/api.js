@@ -1,11 +1,11 @@
 import axios from 'axios'
-const base_url ="http://hivqa.local"
+const base_url =process.env.VUE_APP_API_URL
 const apiCall = ({url, data, method}) => new Promise((resolve, reject) => {
   url = base_url+url
   setTimeout(() => {
     try {
 
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('user-token');
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('access_token');
       if (method == 'GET') {
         axios.get(url, { crossdomain: true }).then((response) => {
           resolve(response.data)

@@ -4,7 +4,10 @@ import { USER_REQUEST } from '../actions/user'
 import apiCall from '../../utils/api'
 
 const state = {
-  token: localStorage.getItem('user-token') || '', status: '', hasLoadedOnce: false
+  token:localStorage.getItem('access_token') || '',
+  status: '',
+  hasLoadedOnce: false
+
    }
 
 const getters = {
@@ -20,13 +23,14 @@ const actions = {
       apiCall({url: '/api/login', data: user, method: 'POST'})
       .then(resp => {
         commit(AUTH_SUCCESS, resp)
+        console.log(resp.access_token)
         localStorage.setItem('access_token', 'Bearer ' + resp.access_token)
         // dispatch(USER_REQUEST)
-        consol.log(resp);
+        console.log(resp.access_token)
         resolve(resp)
       }).catch(err => {
         commit(AUTH_ERROR, err)
-        localStorage.removeItem('access_tokens')
+        localStorage.removeItem('access_token')
         reject(err)
       })
     })

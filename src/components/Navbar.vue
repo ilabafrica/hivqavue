@@ -79,7 +79,7 @@ export default {
 	},
 	methods: {
       signOut: function () {
-        this.$store.dispatch(AUTH_LOGOUT).then(() => this.$router.push('/login'))
+        this.$store.dispatch(AUTH_LOGOUT).then(() => this.$router.push('/auth'))
       },
     },
 }
