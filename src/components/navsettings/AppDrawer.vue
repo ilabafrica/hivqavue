@@ -170,11 +170,11 @@ const Menu = [
   },
   { header: "Surveys" },
   {
-    title: "HTC Lab Regiter",
+    title: "HTC Lab Register",
     group: "surveys",
     icon: "dashboard",
     target: "htc_collected_data",
-    name: "HTC_Collected_Data"
+    name: "htc_collected_data"
   },
   {
     title: "SPI-RT Checklist",
