@@ -8,13 +8,13 @@
       <v-row > 
           <v-col class="lg12">
             <v-btn class="primary" to = "htc_collected_data" >View Collected Data</v-btn>
-            
           </v-col>
         </v-row>
 
         <v-row>
           <v-col class="lg12">
             <form-wizard v-for="checklist in checklists" @on-complete="submitAnswers()" v-bind:title="checklist_name" subtitle="">
+              
               
               <tab-content v-for="section in checklist.section">
                 <div v-for="question in section.question">
@@ -51,7 +51,18 @@
       FormWizard,
       TabContent
     },
+    props: {
+      selected_sdp: '',
+      selected_facility: '',
+
+    },
     mounted(){
+      if (this.selected_sdp) {
+            this.sdp = this.selected_sdp    
+        }
+      if (this.selected_facility) {
+          this.facility = this.selected_facility    
+      }
       this.getQuestions();
     },
     data () {
@@ -88,35 +99,21 @@
     methods: {
       getQuestions() {
         //get api end point
-        apiCall({url: "question_per_checklist/1/1/1", method: "GET"}).then(response => (
+        apiCall({url: "question_per_checklist/1/"+ this.facility + "/"+ this.sdp, method: "GET"}).then(response => (
           this.checklists = response.data, 
           this.checklist_name = response.checklist_name,
-          this.checklist_id = response.checklist_id,
-          this.facility = response.facility,
-          this.sdp = response.sdp
-
+          this.checklist_id = response.checklist_id
           ))
       },
       submitAnswers() {
-
-        //process survey variables 
-        var submitted_responses = []
-
-        submitted_responses.push ({
-          answers: this.answers,
-          checklist_id: this.checklist_id,
-          facility: this.facility,
-          sdp: this.sdp
-          
-        })
         console.log("array to submit is ", this.answers)
 
         //post data to api end point
-        apiCall({url: "questions", method: "POST", data: this.answers})
-        .then(response => (
-            console.log('api call response is: ', response)
-          )
-        )
+        // apiCall({url: "questions", method: "POST", data: this.answers})
+        // .then(response => (
+        //     console.log('api call response is: ', response)
+        //   )
+        // )
       },
     validate () {
       // if (this.$refs.form.validate()) {

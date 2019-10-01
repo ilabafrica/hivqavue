@@ -81,6 +81,7 @@ export default new Router({
       path: '/htc_questionnaire',
       name: 'htc_questionnaire',
       component: HTC_Questionnaire,
+      props: true,
       beforeEnter: ifNotAuthenticated,
     },
     {
