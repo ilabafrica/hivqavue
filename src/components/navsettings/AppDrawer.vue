@@ -183,24 +183,24 @@ const Menu = [
     target: "spi_collected_data",
     name: "SPI_Collected_Data"
   },
-  { header: "Settings" },
+  { header: "Access Control" },
   {
     title: "Users",
     group: "apps",
-
-    icon: "email"
+    href: "/accesscontrol/useraccounts",
+    icon: "settings"
   },
   {
     title: "Permissions",
     group: "settings",
-
-    icon: "email"
+    href:  "/accesscontrol/permissions",
+    icon: "settings"
   },
   {
-    title: "Access Controls",
+    title: "Roles",
     group: "settings",
-
-    icon: "email"
+    href:  "/accesscontrol/role",
+    icon: "settings"
   },
 ]
 // reorder menu

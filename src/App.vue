@@ -28,38 +28,16 @@ import AppEvents from "./event"
 
 export default {
   name : 'App',
-  components: {
-    ThemeSettings
-    // Navbar
-
-  },
-  data() {
-    return {
-      rightDrawer: false,
-      snackbar: {
-        show: false,
-        text: "",
-        color: ""
-      }
-    }
-  },
-  created() {
-    // add app events
-  },
-  methods: {
-    openThemeSettings() {
-      this.$vuetify.goTo(0)
-      this.rightDrawer = !this.rightDrawer
-    }
-  }
+  // data() {
+  //   return {
+  //     rightDrawer: false,
+  //     snackbar: {
+  //       show: false,
+  //       text: "",
+  //       color: ""
+  //     }
+  //   }
+  // },  
 };
 </script>
-
-<style scoped>
-.setting-fab {
-  top: 50% !important;
-  right: 0;
-  border-radius: 0;
-}
-</style>
 

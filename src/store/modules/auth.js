@@ -23,7 +23,7 @@ const actions = {
       apiCall({url: '/api/login', data: user, method: 'POST'})
       .then(resp => {
         commit(AUTH_SUCCESS, resp)
-        console.log(resp.access_token)        
+        //console.log(resp.access_token)        
         localStorage.setItem('access_token', 'Bearer ' + resp.access_token)
         dispatch(USER_REQUEST)
         resolve(resp)
@@ -36,10 +36,10 @@ const actions = {
   },
   [AUTH_LOGOUT]: ({commit, dispatch}) => {
     return new Promise((resolve, reject) => {
-      // commit(AUTH_LOGOUT)
+      
       apiCall({url: '/api/logout', method:'POST'})
        .then(resp => {
-      console.log(resp)
+      //console.log(resp)
       localStorage.removeItem('access_token')
       commit(AUTH_LOGOUT)      
       resolve(resp)

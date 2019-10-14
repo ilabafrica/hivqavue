@@ -22,21 +22,21 @@
 
     </v-content>
     <!-- Go to top -->
-    <app-fab></app-fab>
+    <!-- <app-fab></app-fab> -->
   </v-app>
 </template>
 
 <script>
 import AppDrawer from "@/components/navsettings/AppDrawer"
 import AppToolbar from "@/components/navsettings/AppToolbar"
-import AppFab from "@/components/navsettings/AppFab"
+//import AppFab from "@/components/navsettings/AppFab"
 // import PageHeader from "@/components/navsettings/PageHeader"
 
 export default {
   components: {
     AppDrawer,
     AppToolbar,
-    AppFab,
+    //AppFab,
     // PageHeader
   },
 

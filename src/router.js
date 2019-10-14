@@ -71,7 +71,7 @@ export default new Router({
       name: 'UserAccount',
       component: DefaultLayout,
       ridirect:"/accesscontrol/useraccounts",
-      // beforeEnter: ifAuthenticated,
+      beforeEnter: ifAuthenticated,
       hidden: true,      
       children:[{
         path:'/accesscontrol/useraccounts',
@@ -85,7 +85,7 @@ export default new Router({
       name: 'Permission',
       component: DefaultLayout,
       redirect:'/accesscontrol/permissions',
-      // beforeEnter: ifAuthenticated,
+      beforeEnter: ifAuthenticated,
       hidden:true,
       children:[{
         path:'/accesscontrol/permissions',
@@ -97,7 +97,7 @@ export default new Router({
       path: '/accesscontrol/role',
       name: 'Role',
       component: Role,
-      // beforeEnter: ifAuthenticated,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/accesscontrol/roleusers',
