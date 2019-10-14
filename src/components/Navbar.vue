@@ -83,7 +83,7 @@
         .then((response) => {
         	setTimeout(() => {
         	console.log(response)
-        	this.$router.push('/auth')
+        	this.$router.push('/auth/login')
         	}, 4000)
         })
       },

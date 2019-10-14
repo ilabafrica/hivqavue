@@ -34,7 +34,7 @@
 
   export default {
     mounted(){
-      console.log(this.$state)
+      //console.log(this.$state)
     }
   }
 </script>

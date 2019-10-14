@@ -1,6 +1,5 @@
 <template>
-	<app-layout>
-	<div>
+	<div class="mt-5">
     <v-card-title>
       Permissions
       <v-spacer></v-spacer>
@@ -29,11 +28,10 @@
               <v-checkbox
                 v-model="permissionRoleIds"
                 :value="getAssignment(row.item,role)"
-                v-on:click="toggleAssignment(row.item,role)">
+                v-on:click.preventDefault="toggleAssignment(row.item,role)">
               </v-checkbox>
             </td>
-          </tr>
-    
+          </tr>    
       </template>
 
     </v-data-table>
@@ -46,19 +44,13 @@
         circle>
       </v-pagination>
     </div>
-  </div>
-  </app-layout>
+  </div>  
 </template>
 <script>
-  import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
   import apiCall from '../../utils/api'
   import _ from 'lodash';
-
   export default {
-    name: 'Permissions',
-    components: {
-      'app-layout': DefaultLayout,
-    },
+    name: 'Permissions',   
     data: () => ({
       valid: true,
       search: '',

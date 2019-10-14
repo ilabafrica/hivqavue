@@ -42,11 +42,10 @@
 <script>
 
 import Fullscreen from "@/utils/fullscreen"
-export default {
-  name: "AppToolbar",
-  components: {
+import { AUTH_LOGOUT } from '../../store/actions/auth'
 
-  },
+export default {
+  name: "AppToolbar",  
   data() {
     return {
       items: [
@@ -55,18 +54,12 @@ export default {
           href: "#",
           title: "Profile",
           click: this.handleProfile
-        },
-        {
-          icon: "settings",
-          href: "#",
-          title: "Settings",
-          click: this.handleSetting
-        },
+        },        
         {
           icon: "fullscreen_exit",
           href: "#",
           title: "Logout",
-          click: this.handleLogut
+          click: this.Logout
         }
       ]
     }
@@ -83,13 +76,15 @@ export default {
     handleFullScreen() {
       Fullscreen.toggleFullScreen()
     },
-    handleLogut() {
-      //handle logout
-      this.$router.push('/auth/login')
-    },
-    handleSetting() {
-
-    },
+    Logout: function () {
+        this.$store.dispatch(AUTH_LOGOUT)
+        .then((response) => {
+          setTimeout(() => {
+          console.log(response)
+          this.$router.push('/auth/login')
+          }, 4000)
+        })
+     },   
     handleProfile() {
 
     }
@@ -97,4 +92,4 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped></style>
+

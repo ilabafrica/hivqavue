@@ -1,5 +1,5 @@
 <template>
-  <div class="app-root">
+  <div class="app-root mt-3">
      <!-- <Navbar v-if="['Login', 'Register'].indexOf($route.name) == -1"/> -->
      <router-view></router-view>
 

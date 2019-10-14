@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import UserAccounts from './views/ACL/useraccounts.vue'
-import Permissions from './views/ACL/permissions.vue'
+import Permission from './views/ACL/permissions.vue'
 import Role from './views/ACL/role.vue'
 import RoleUser from './views/ACL/roleuser.vue'
 import Projects from './views/Projects.vue'
@@ -24,7 +24,7 @@ const ifNotAuthenticated = (to, from, next) => {
     next()
     return
   }
-    next('/auth')
+    next('/dashboard')
 }
 
 const ifAuthenticated = (to, from, next) => {
@@ -32,7 +32,7 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('/dashboard')
+  next('/auth')
 }
 
 export default new Router({
@@ -51,18 +51,47 @@ export default new Router({
         component: () => import ("@/views/login.vue")
       }]
     },
+    {
+      path: '/dashboard',
+      component: DefaultLayout,
+      meta: {title: "Dashboard"},
+      beforeEnter: ifAuthenticated,
+      ridirect: '/dashboard',
+      hidden :true,
+      children : [{
+        path: '/dashboard',
+        name: "Dashboard",
+        component: () => import ('./views/Dashboard.vue')
+
+      }]
+    },
     //Access Control
     {
       path: '/accesscontrol/useraccounts',
       name: 'UserAccount',
-      component: UserAccounts,
+      component: DefaultLayout,
+      ridirect:"/accesscontrol/useraccounts",
       // beforeEnter: ifAuthenticated,
+      hidden: true,      
+      children:[{
+        path:'/accesscontrol/useraccounts',
+        name: 'useraccounts',
+        component: UserAccounts
+      }]
+      
     },
     {
       path: '/accesscontrol/permissions',
       name: 'Permission',
-      component: Permissions,
+      component: DefaultLayout,
+      redirect:'/accesscontrol/permissions',
       // beforeEnter: ifAuthenticated,
+      hidden:true,
+      children:[{
+        path:'/accesscontrol/permissions',
+        name:'permissions',
+        component: Permission
+      }]
     },
     {
       path: '/accesscontrol/role',
@@ -111,21 +140,7 @@ export default new Router({
       name: 'HTC_Questionnaire',
       component: HTC_Questionnaire,
       beforeEnter: ifNotAuthenticated,
-    },
-    {
-      path: '/dashboard',
-      component: DefaultLayout,
-      meta: {title: "Dashboard"},
-      //beforeEnter: ifAuthenticated,
-      ridirect: "/dashboard",
-      hidden :true,
-      children : [{
-        path: '/dashboard',
-        name: "Dashboard",
-        component: () => import ('./views/Dashboard.vue')
-
-      }]
-    },
+    },    
     {
       path: '/projects',
       name: 'projects',

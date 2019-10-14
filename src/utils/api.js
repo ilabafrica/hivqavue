@@ -15,7 +15,7 @@ const apiCall = ({url, data, method}) => new Promise((resolve, reject) => {
       } else if (method == 'POST'){
         axios.post(url,data).then((response) => {
           resolve(response.data)
-          console.log(response.data);
+          console.log(response.data)
         }).catch((error) => {
           reject(new Error(error))
         });

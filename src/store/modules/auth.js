@@ -23,9 +23,9 @@ const actions = {
       apiCall({url: '/api/login', data: user, method: 'POST'})
       .then(resp => {
         commit(AUTH_SUCCESS, resp)
+        console.log(resp.access_token)        
         localStorage.setItem('access_token', 'Bearer ' + resp.access_token)
-        // dispatch(USER_REQUEST)
-        // console.log(resp.access_token)
+        dispatch(USER_REQUEST)
         resolve(resp)
       }).catch(err => {
         commit(AUTH_ERROR, err)
@@ -36,17 +36,17 @@ const actions = {
   },
   [AUTH_LOGOUT]: ({commit, dispatch}) => {
     return new Promise((resolve, reject) => {
-
-      apiCall({url: '/api/logout',data: '', method:'POST'})
+      // commit(AUTH_LOGOUT)
+      apiCall({url: '/api/logout', method:'POST'})
        .then(resp => {
-        console.log(resp)
-      commit(AUTH_LOGOUT)
+      console.log(resp)
       localStorage.removeItem('access_token')
+      commit(AUTH_LOGOUT)      
       resolve(resp)
 
     }).catch(err => {
-        commit(AUTH_LOGOUT)
         localStorage.removeItem('access_token')
+        commit(AUTH_LOGOUT)
         reject(err)
      })
     })
@@ -59,7 +59,7 @@ const mutations = {
   },
   [AUTH_SUCCESS]: (state, resp) => {
     state.status = 'success'
-    state.token = resp.token
+    state.token = resp.access_token
     state.hasLoadedOnce = true
   },
   [AUTH_ERROR]: (state) => {

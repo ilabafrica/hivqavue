@@ -102,7 +102,7 @@ export default {
   props: {
     expanded: {
       type: Boolean,
-      default: true
+      default: false
     },
     drawWidth: {
       type: [Number, String],

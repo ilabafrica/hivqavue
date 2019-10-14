@@ -6,7 +6,7 @@
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4 lg4>
             <v-snackbar v-model="errorsnackbar" :timeout="4000" top color="error">
-            <span>Email/Password wrong or Account is not activated</span>
+            <span>Wrong Email or Password </span>
             <v-btn flat color="white" @click="errorsnackbar = false">Close</v-btn>
              </v-snackbar>
             <v-card class="elevation-3 pa-3" id="login-card">
@@ -88,7 +88,7 @@
            .then((response) => {
              setTimeout(() => {
               this.$router.push("/dashboard")
-              }, 5000)
+              }, 4000)
            }).catch((response) => {
                 this.errorsnackbar = true
                 this.loading = false

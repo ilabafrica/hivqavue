@@ -2,11 +2,12 @@
   <v-app id="inspire" class="app dashboard">
     <app-drawer class="app--drawer" :show-drawer="showDrawer"></app-drawer>
     <app-toolbar class="app--toolbar" @side-icon-click="handleDrawerVisiable"></app-toolbar>
-    <v-content>
+    <v-content xs8 sm12 lg8>
+       
       <!-- Page Header -->
       <div class="page-wrapper">
       <!-- <page-header></page-header> -->
-        <!-- <router-view></router-view> -->
+        <router-view></router-view>
         <div class="app-layout-main">
           <div class="column is-8">
             <slot/>
@@ -18,6 +19,7 @@
         <span class="caption">iLabAfrica &copy; {{ new Date().getFullYear() }}</span>
         <v-spacer></v-spacer>
       </v-footer>
+
     </v-content>
     <!-- Go to top -->
     <app-fab></app-fab>
@@ -28,14 +30,14 @@
 import AppDrawer from "@/components/navsettings/AppDrawer"
 import AppToolbar from "@/components/navsettings/AppToolbar"
 import AppFab from "@/components/navsettings/AppFab"
-import PageHeader from "@/components/navsettings/PageHeader"
+// import PageHeader from "@/components/navsettings/PageHeader"
 
 export default {
   components: {
     AppDrawer,
     AppToolbar,
     AppFab,
-    PageHeader
+    // PageHeader
   },
 
   data() {
