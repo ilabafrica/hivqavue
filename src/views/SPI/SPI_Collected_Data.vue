@@ -1,7 +1,5 @@
 <template>
-<app-layout>
   <div class="dashboard">
-
   	<v-container class="my-5">  		
       <h1 class="subheading grey--text">Home/Surveys/SPI-RT Checklist/Collected Data</h1>
         <v-row > 
@@ -16,22 +14,14 @@
           <v-col class="lg12">
            <v-data-table :headers="headers":items="desserts" :items-per-page="5" class="elevation-1"></v-data-table>
           </v-col>
-        </v-row>
-  		
+        </v-row>  		
   	</v-container>
 
   </div>
-</app-layout>
-
 </template>
 
 <script>
-  import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
-
-  export default {
-    components: {
-      'app-layout': DefaultLayout,
-    },
+  export default {    
     mounted(){
       console.log(this.$state)
     },

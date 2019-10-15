@@ -1,5 +1,4 @@
 <template>
-<app-layout>
   <div class="dashboard">
 
     <v-container class="my-5">      
@@ -70,18 +69,13 @@
     </v-container>
 
   </div>
-</app-layout>
-
 </template>
 
-<script>
-  import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
+<script> 
 
   export default {
     // vuetify: new Vuetify(),
-    components: {
-      'app-layout': DefaultLayout,
-    },
+    
     mounted(){
       console.log(this.$state)
     },

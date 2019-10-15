@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire" class="app dashboard">
-    <app-drawer class="app--drawer" :show-drawer="showDrawer"></app-drawer>
+    <app-drawer class="app--drawer" :show-drawer="showDrawer" @click.prevent="Drawer"></app-drawer>
     <app-toolbar class="app--toolbar" @side-icon-click="handleDrawerVisiable"></app-toolbar>
     <v-content xs8 sm12 lg8>
        
@@ -29,14 +29,14 @@
 <script>
 import AppDrawer from "@/components/navsettings/AppDrawer"
 import AppToolbar from "@/components/navsettings/AppToolbar"
-//import AppFab from "@/components/navsettings/AppFab"
+import AppFab from "@/components/navsettings/AppFab"
 // import PageHeader from "@/components/navsettings/PageHeader"
 
 export default {
   components: {
     AppDrawer,
     AppToolbar,
-    //AppFab,
+    AppFab,
     // PageHeader
   },
 
@@ -48,6 +48,13 @@ export default {
   methods: {
     handleDrawerVisiable() {
       this.showDrawer = !this.showDrawer
+    },
+   
+    
+    Drawer() {
+      let myshowDrawer = this.showDrawer;
+      myshowDrawer = Boolean;
+      this.$emit("update-showdrawer", myshowDrawer);
     }
   },
   created() {}

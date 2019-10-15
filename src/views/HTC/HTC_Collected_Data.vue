@@ -1,5 +1,5 @@
 <template>
-<app-layout>
+
   <div class="dashboard">
 
     <v-container class="my-5">
@@ -17,17 +17,14 @@
     </v-container>
 
   </div>
-</app-layout>
+
 
 </template>
 
 <script>
-  import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
+  
 
-  export default {
-    components: {
-      'app-layout': DefaultLayout,
-    },
+  export default {    
     mounted(){
       console.log(this.$state)
     },

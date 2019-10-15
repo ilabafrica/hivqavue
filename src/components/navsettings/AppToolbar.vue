@@ -82,7 +82,7 @@ export default {
           setTimeout(() => {
           console.log(response)
           this.$router.push('/auth/login')
-          }, 4000)
+          }, 1000)
         })
      },   
     handleProfile() {

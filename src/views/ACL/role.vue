@@ -1,5 +1,4 @@
-<template>
-	<app-layout>
+<template>	
   <div>
     <v-snackbar
       v-model="snackbar"
@@ -95,17 +94,13 @@
       </template>
     </v-data-table>
   </div>
-</app-layout>
 </template>
 <script>
-  import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
+  
   import apiCall from '../../utils/api'
   export default {
     name:'Role',
-    name:'UserAccounts',
-    components: {
-      'app-layout': DefaultLayout,
-    },
+    name:'UserAccounts',    
     data: () => ({
       valid: true,
       dialog: false,

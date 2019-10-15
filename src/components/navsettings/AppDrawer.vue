@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer class="app--drawer" :mini-variant.sync="mini" app v-model="showDrawer" :width="drawWidth">
+  <v-navigation-drawer class="app--drawer" :mini-variant.sync="mini" app v-model="showDrawer"  :width="drawWidth">
     <v-toolbar color="primary darken-1" dark>
       <img :src="KenyaLogo" height="36" alt="HIVQA" />
       <v-toolbar-title class="ml-0 pl-3">
@@ -102,13 +102,13 @@ export default {
   props: {
     expanded: {
       type: Boolean,
-      default: false
+      default: true
     },
     drawWidth: {
       type: [Number, String],
       default: "260"
     },
-    showDrawer: true
+    showDrawer: Boolean
   },
   data() {
     return {
@@ -142,6 +142,9 @@ export default {
         }
       }
       return { name: `${item.group}/${subItem.name}` }
+    },
+     update(showDrawer){
+      this.showDrawer = showDrawer;
     }
   }
 }
@@ -168,40 +171,31 @@ const Menu = [
     target: "sdp",
     icon: "email"
   },
-  { header: "Surveys" },
+  { header: "Questionnaire" },
   {
-    title: "HTC Lab Regiter",
+    title: "Surveys",
     group: "surveys",
     icon: "dashboard",
-    target: "htc_collected_data",
-    name: "HTC_Collected_Data"
-  },
+    items:[
+      { name: "HTC_Collected_Data", title: "HTC Lab Regiter", target: "htc_collected_data"},
+      { name: "SPI_Collected_Data",title: "SPI-RT Checklist", target: "spi_collected_data"},
+      { name: "HTC_Questionnaire",title: "HTC_Questionnaire", target: "htc_questionnaire"},
+
+    ]
+  }, 
+    
+  { header: "Settings" },
   {
-    title: "SPI-RT Checklist",
-    group: "surveys",
-    icon: "chat_bubble",
-    target: "spi_collected_data",
-    name: "SPI_Collected_Data"
-  },
-  { header: "Access Control" },
-  {
-    title: "Users",
-    group: "apps",
-    href: "/accesscontrol/useraccounts",
-    icon: "settings"
-  },
-  {
-    title: "Permissions",
-    group: "settings",
-    href:  "/accesscontrol/permissions",
-    icon: "settings"
-  },
-  {
-    title: "Roles",
-    group: "settings",
-    href:  "/accesscontrol/role",
-    icon: "settings"
-  },
+   title: "Access Control",
+   group: "accesscontrol",
+   icon:  "settings",
+   items: [
+      { name:"Useraccounts", title :"Users", target: "useraccounts" } ,
+      { name:"Permissions", title :"Permissions", target: "permissions" } ,
+      { name:"Roles", title :"Roles", target: "roles" } ,
+      ]
+  },  
+  
 ]
 // reorder menu
 Menu.forEach(item => {

@@ -88,7 +88,7 @@
            .then((response) => {
              setTimeout(() => {
               this.$router.push("/dashboard")
-              }, 4000)
+              }, 1000)
            }).catch((response) => {
                 this.errorsnackbar = true
                 this.loading = false
