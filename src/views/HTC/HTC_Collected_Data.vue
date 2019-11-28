@@ -4,13 +4,29 @@
 
     <v-container class="my-5">      
       <h1 class="subheading grey--text">Home/Surveys/HTC Register Checklist/Collected Data</h1>
-        <v-layout row wrap>
-            <v-btn class="primary" to="htc_questionnaire">Fill Questionaire</v-btn>
-            <v-btn class="success">View Reports</v-btn>
+
+      <v-row > 
+          <v-col class="lg12">
+            <v-btn class="primary" to="facilities">Fill Questionaire</v-btn>
             <v-btn class="info">Import Collected Data</v-btn>
-          <v-data-table :headers="headers":items="desserts" :items-per-page="5" class="elevation-1"></v-data-table>
-        </v-layout>
-      
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col class="lg12">
+           <v-data-table :headers="survey_headers":items="survey_list" :items-per-page="5" class="elevation-1">
+            <template slot="items" slot-scope="props">
+              <td>{{ props.item.qa_officer }}</td>
+              <td class="text-xs-left">{{ props.item.facility_name }}</td>
+              <td class="text-xs-left">{{ props.item.sdp_name }}</td>
+              <td class="text-xs-left">{{ props.item.score }}</td>
+              <td class="text-xs-left">{{ props.item.date_submitted }}</td>
+              <td class="text-xs-left"><v-btn color="blue lighten-2" dark :to="{name:'htc_filled_survey', params: { survey_id: props.item.id }}">View Survey</v-btn></td>
+            </template>   
+           </v-data-table>
+          </v-col>
+        </v-row>
+
     </v-container>
 
   </div>
@@ -27,38 +43,33 @@
       'app-layout': DefaultLayout,
     },
     mounted(){
-      console.log(this.$state)
+      this.getSurveys()
+
     },
     data () {
     return {
-      headers: [
+      survey_headers: [
         {
           text: 'QA Officer',
           align: 'left',
           sortable: false,
-          value: 'name',
         },
-        { text: 'Facility', value: 'fat' },
-        { text: 'SDP', value: 'carbs' },
-        { text: 'Action', value: 'protein' },
+        { text: 'Facility' },
+        { text: 'SDP'},
+        { text: 'Score'},
+        { text: 'Date Submitted'},
+        { text: 'Action'},
       ],
-      desserts: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        }
-      ]
+      survey_list:[],
     }
+    },
+    methods:{
+
+      getSurveys(){
+       //get api end point
+        apiCall({url: "specific_checklist_survey/1", method: "GET"}).then(response => (this.survey_list = response))
+
+      }  
     }
   }
 </script>

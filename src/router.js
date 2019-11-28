@@ -11,6 +11,7 @@ import SDP from './views/SDPs.vue'
 import SPI_Collected_Data from './views/SPI/SPI_Collected_Data.vue'
 import HTC_Collected_Data from './views/HTC/HTC_Collected_Data.vue'
 import HTC_Questionnaire from './views/HTC/HTC_Questionnaire.vue'
+import HTC_Filled_Survey from './views/HTC/HTC_Filled_Survey.vue'
 import store from './store/index'
 
 Vue.use(Router)
@@ -81,6 +82,13 @@ export default new Router({
       path: '/htc_questionnaire',
       name: 'htc_questionnaire',
       component: HTC_Questionnaire,
+      props: true,
+      beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/htc_filled_survey',
+      name: 'htc_filled_survey',
+      component: HTC_Filled_Survey,
       props: true,
       beforeEnter: ifNotAuthenticated,
     },
