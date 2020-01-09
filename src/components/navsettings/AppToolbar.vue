@@ -1,19 +1,21 @@
 <template>
   <v-toolbar color="primary" fixed dark app>
+    <v-toolbar-side-icon @click="handleDrawerToggle"></v-toolbar-side-icon>
     <v-toolbar-title>
-      <v-toolbar-side-icon @click="handleDrawerToggle"></v-toolbar-side-icon>
+      HIVQA
     </v-toolbar-title>
-    <v-text-field flat solo-inverted prepend-inner-icon="search" label="Search" clearable class="search"></v-text-field>
+    <!-- <v-text-field flat solo-inverted prepend-inner-icon="search" label="Search" clearable class="search"></v-text-field> -->
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn icon @click="handleFullScreen()">
+      <!-- <v-btn icon @click="handleFullScreen()">
         <v-icon>fullscreen</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
         <v-btn icon large flat slot="activator">
-          <v-avatar size="50px">
+          <v-icon>more_vert</v-icon>
+          <!-- <v-avatar size="50px">
             <img src="/avatar-1.png" alt="Avator" />
-          </v-avatar>
+          </v-avatar> -->
         </v-btn>
         <v-list class="pa-0">
           <v-list-tile

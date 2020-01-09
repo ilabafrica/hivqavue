@@ -10,13 +10,13 @@
             <v-btn class="primary" to = "htc_collected_data" >View Collected Data</v-btn>
           </v-col>
         </v-row>
-
+        
         <v-row>
           <v-col class="lg12">
-            <form-wizard v-for="checklist in checklists" @on-complete="submitAnswers()" v-bind:title="checklist_name" subtitle="">
+            <form-wizard @on-complete="submitAnswers()" v-bind:title="questionCategory.name" subtitle="">
               
               
-              <tab-content v-for="section in checklist.section">
+              <tab-content v-for="section in questionCategory.section">
                 <div v-for="question in section.question">
                   {{question.name}}
                   <v-text-field v-if ="question.question_type ==2"  :counter="10":rules="nameRules" required v-bind:name = 'question.identifier' v-model =answers[question.id]></v-text-field>
@@ -43,6 +43,7 @@
   import apiCall from '@/utils/api';
   import {FormWizard, TabContent} from 'vue-form-wizard'
   import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
     // vuetify: new Vuetify(),
@@ -56,6 +57,9 @@
       selected_facility: '',
 
     },
+    created(){
+      this.initialize()
+    },
     mounted(){
       if (this.selected_sdp) {
             this.sdp = this.selected_sdp    
@@ -68,7 +72,7 @@
     data () {
     return {
       checklists: '',
-      checklist_name: '',
+      //checklist_name: '',
       checklist_id: '',
       facility: '',
       sdp: '',
@@ -97,15 +101,25 @@
 }
     },
     methods: {
+      ...mapActions([
+          'fetchQuestions',
+          'pushAnswers'
+      ]),
+      initialize(){
+        this.fetchQuestions()
+      },
       getQuestions() {
         //get api end point
         apiCall({url: "question_per_checklist/1/"+ this.facility + "/"+ this.sdp, method: "GET"}).then(response => (
-          this.checklists = response.data, 
-          this.checklist_name = response.checklist_name,
+          //this.checklists = response.data, 
+          //this.checklist_name = response.checklist_name,
           this.checklist_id = response.checklist_id
           ))
       },
       submitAnswers() {
+        let answersCopy = this.answersCache
+        answersCopy.push(Object.assign({},this.answers))
+        this.pushAnswers(answersCopy)
         console.log("array to submit is ", this.answers)
 
         //post data to api end point
@@ -115,17 +129,26 @@
         //   )
         // )
       },
-    validate () {
-      // if (this.$refs.form.validate()) {
-      //   this.snackbar = true
-      // }
+      validate () {
+        // if (this.$refs.form.validate()) {
+        //   this.snackbar = true
+        // }
+      },
+      reset () {
+        // this.$refs.form.reset()
+      },
+      resetValidation () {
+        // this.$refs.form.resetValidation()
+      },
     },
-    reset () {
-      // this.$refs.form.reset()
-    },
-    resetValidation () {
-      // this.$refs.form.resetValidation()
-    },
-  },
+    computed: {
+      ...mapGetters([
+        'questions',
+        'answersCache'
+      ]),
+      questionCategory(){
+        return this.$store.getters.questions.find((category) => category.id == 1)
+      }
+    }
   }
 </script>
