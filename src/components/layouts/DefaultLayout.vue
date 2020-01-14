@@ -15,7 +15,7 @@
       </div>
       <!-- App Footer -->
       <v-footer height="auto" class="white pa-3 app--footer">
-        <span class="caption">iLabAfrica &copy; {{ new Date().getFullYear() }}</span>
+        <span class="caption">Ministry of Health - National Public Health Laboratory  &copy; {{ new Date().getFullYear() }}</span>
         <v-spacer></v-spacer>
       </v-footer>
     </v-content>

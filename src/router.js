@@ -2,8 +2,6 @@ import { AuthLayout, DefaultLayout} from './components/layouts'
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
-import Projects from './views/Projects.vue'
-import Team from './views/Team.vue'
 import Login from './components/login.vue'
 import Register from './components/register.vue'
 import Facilities from './views/Facilities.vue'
@@ -11,6 +9,7 @@ import SDP from './views/SDPs.vue'
 import SPI_Collected_Data from './views/SPI/SPI_Collected_Data.vue'
 import HTC_Collected_Data from './views/HTC/HTC_Collected_Data.vue'
 import HTC_Questionnaire from './views/HTC/HTC_Questionnaire.vue'
+import HTC_Filled_Survey from './views/HTC/HTC_Filled_Survey.vue'
 import store from './store/index'
 
 Vue.use(Router)
@@ -32,7 +31,7 @@ const ifAuthenticated = (to, from, next) => {
 }
 
 export default new Router({
-  mode: 'history',
+  //mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -73,14 +72,22 @@ export default new Router({
     },
     {
       path: '/htc_collected_data',
-      name: 'HTC_Collected_Data',
+      name: 'htc_collected_data',
       component: HTC_Collected_Data,
       beforeEnter: ifNotAuthenticated,
     },
     {
       path: '/htc_questionnaire',
-      name: 'HTC_Questionnaire',
+      name: 'htc_questionnaire',
       component: HTC_Questionnaire,
+      props: true,
+      beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/htc_filled_survey',
+      name: 'htc_filled_survey',
+      component: HTC_Filled_Survey,
+      props: true,
       beforeEnter: ifNotAuthenticated,
     },
     {
@@ -97,17 +104,5 @@ export default new Router({
 
       }]
     },
-    {
-      path: '/projects',
-      name: 'projects',
-      component: Projects,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      path: '/team',
-      name: 'team',
-      component: Team,
-      beforeEnter: ifAuthenticated,
-    }
   ]
 })

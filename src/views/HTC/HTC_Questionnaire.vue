@@ -7,146 +7,148 @@
 
       <v-row > 
           <v-col class="lg12">
-            <v-btn class="primary">View Collected Data</v-btn>
-            <v-btn class="success">View Reports</v-btn>
-            <v-btn class="info">Import Collected Data</v-btn>
+            <v-btn class="primary" to = "htc_collected_data" >View Collected Data</v-btn>
           </v-col>
         </v-row>
-
+        
         <v-row>
           <v-col class="lg12">
-          <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="name":counter="10":rules="nameRules"
-        label="Name"
-        required
-      ></v-text-field>
-  
-      <v-text-field
-        v-model="email"
-        :rules="emailRules"
-        label="E-mail"
-        required
-      ></v-text-field>
-  
-      <v-select
-        v-model="select"
-        :items="items"
-        :rules="[v => !!v || 'Item is required']"
-        label="Item"
-        required
-      ></v-select>
-  
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[v => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
-  
-      <v-btn
-        :disabled="!valid"
-        color="success"
-        class="mr-4"
-      >
-        Validate
-      </v-btn>
-  
-      <v-btn
-        color="error"
-        class="mr-4"
-      >
-        Reset Form
-      </v-btn>
-  
-      <v-btn
-        color="warning"
-      >
-        Reset Validation
-      </v-btn>
-    </v-form>
-    </v-col>
+            <form-wizard @on-complete="submitAnswers()" v-bind:title="questionCategory.name" subtitle="">
+              
+              
+              <tab-content v-for="section in questionCategory.section">
+                <div v-for="question in section.question">
+                  {{question.name}}
+                  <v-text-field v-if ="question.question_type ==2"  :counter="10":rules="nameRules" required v-bind:name = 'question.identifier' v-model =answers[question.id]></v-text-field>
+                  <v-radio-group v-else-if ="question.question_type ==0" v-bind:name = 'question.identifier' v-model =answers[question.id]>
+                    <v-radio value = "2" label="Yes"></v-radio>
+                    <v-radio value = "0" label="No"></v-radio>
+                    <v-radio value = "1" label="Partial"></v-radio>
+                  </v-radio-group>
+                  <v-textarea v-else-if ="question.question_type ==3" hint="Add a comment" v-bind:name = 'question.identifier' v-model =answers[question.id]></v-textarea>
+                </div>
+              </tab-content>
+
+            </form-wizard>
+          </v-col>
         </v-row>
-      
     </v-container>
 
   </div>
 </app-layout>
-
 </template>
 
 <script>
   import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
+  import apiCall from '@/utils/api';
+  import {FormWizard, TabContent} from 'vue-form-wizard'
+  import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
     // vuetify: new Vuetify(),
     components: {
       'app-layout': DefaultLayout,
+      FormWizard,
+      TabContent
+    },
+    props: {
+      selected_sdp: '',
+      selected_facility: '',
+
+    },
+    created(){
+      this.initialize()
     },
     mounted(){
-      console.log(this.$state)
+      if (this.selected_sdp) {
+            this.sdp = this.selected_sdp    
+        }
+      if (this.selected_facility) {
+          this.facility = this.selected_facility    
+      }
+      this.getQuestions();
     },
     data () {
     return {
-      headers: [
-        {
-          text: 'QA Officer',
-          align: 'left',
-          sortable: false,
-          value: 'name',
-        },
-        { text: 'Facility', value: 'fat' },
-        { text: 'SDP', value: 'carbs' },
-        { text: 'Action', value: 'protein' },
-      ],
-      desserts: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        }
-      ],
+      checklists: '',
+      //checklist_name: '',
+      checklist_id: '',
+      facility: '',
+      sdp: '',
+      answers:{},
       valid: true,
-    name: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-    ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
-    select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
-    ],
+      name: '',
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      select: null,
+      items: [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+      ],
     checkbox: false,
-    }
+    
+ 
+}
     },
     methods: {
-    validate () {
-      // if (this.$refs.form.validate()) {
-      //   this.snackbar = true
-      // }
+      ...mapActions([
+          'fetchQuestions',
+          'pushAnswers'
+      ]),
+      initialize(){
+        this.fetchQuestions()
+      },
+      getQuestions() {
+        //get api end point
+        apiCall({url: "question_per_checklist/1/"+ this.facility + "/"+ this.sdp, method: "GET"}).then(response => (
+          //this.checklists = response.data, 
+          //this.checklist_name = response.checklist_name,
+          this.checklist_id = response.checklist_id
+          ))
+      },
+      submitAnswers() {
+        let answersCopy = this.answersCache
+        answersCopy.push(Object.assign({},this.answers))
+        this.pushAnswers(answersCopy)
+        console.log("array to submit is ", this.answers)
+
+        //post data to api end point
+        // apiCall({url: "questions", method: "POST", data: this.answers})
+        // .then(response => (
+        //     console.log('api call response is: ', response)
+        //   )
+        // )
+      },
+      validate () {
+        // if (this.$refs.form.validate()) {
+        //   this.snackbar = true
+        // }
+      },
+      reset () {
+        // this.$refs.form.reset()
+      },
+      resetValidation () {
+        // this.$refs.form.resetValidation()
+      },
     },
-    reset () {
-      // this.$refs.form.reset()
-    },
-    resetValidation () {
-      // this.$refs.form.resetValidation()
-    },
-  },
+    computed: {
+      ...mapGetters([
+        'questions',
+        'answersCache'
+      ]),
+      questionCategory(){
+        return this.$store.getters.questions.find((category) => category.id == 1)
+      }
+    }
   }
 </script>
