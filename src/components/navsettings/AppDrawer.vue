@@ -182,8 +182,7 @@ const Menu = [
       { name: "HTC_Questionnaire",title: "HTC_Questionnaire", target: "htc_questionnaire"},
 
     ]
-  }, 
-    
+  },   
   { header: "Settings" },
   {
    title: "Access Control",
