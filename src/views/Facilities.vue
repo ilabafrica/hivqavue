@@ -8,6 +8,21 @@
             <v-btn depressed class="warning text-none">Add Facility</v-btn>
           </v-col>
         </v-row>
+    <v-snackbar v-model="snackbar" :timeout="4000" top color="success">
+
+        <offline @detected-condition="handleConnectivityChange">
+    <!-- Only renders when the device is online -->
+    <div slot="online">
+      <p>It looks like you're online! Here's all the things you can do...</p>
+      ...
+    </div>
+    <!-- Only renders when the device is offline -->
+    <div slot="offline">
+      <p>You appear to be offline, that's okay, we can still do things...</p>
+      ...
+    </div>
+  </offline>
+</v-snackbar>
         <v-layout column>
           <v-flex xs12 v-for="(unit, index) in allOrgUnits" class="mt-1">
             <v-card
@@ -145,11 +160,14 @@
 <script>
   import DefaultLayout from '@/components/layouts/DefaultLayout.vue';
   import apiCall from '@/utils/api';
-  import {mapGetters, mapActions} from 'vuex'
-
+  import {mapGetters, mapActions} from 'vuex';
+  import offline from 'v-offline';
+ 
+  
   export default {
     components: {
       'app-layout': DefaultLayout,
+      offline
     },
     created(){
       this.initialize()
@@ -180,6 +198,7 @@
       dialog: false,
       fill_qnr_dialog : false,
       view_sdp_dialog:false,
+      snackbar:true,
     }
     },
 
@@ -202,7 +221,10 @@
        this.fill_qnr_dialog = true;
        this.selected_facility = id;
         
-      }
+      },
+       handleConnectivityChange(status) {
+      console.log(status);
+     },
 
     },
     computed: {

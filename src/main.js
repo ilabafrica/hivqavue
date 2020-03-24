@@ -6,11 +6,13 @@ import store from './store/index'
 import "roboto-fontface/css/roboto/roboto-fontface.css"
 import "font-awesome/css/font-awesome.css"
 import VueApollo from 'vue-apollo'
+import offline from 'v-offline'
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
+  offline,
   render: h => h(App)
 }).$mount('#app')

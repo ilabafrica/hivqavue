@@ -4,6 +4,23 @@
 			<span>Awesome! You added a new project.</span>
 			<v-btn flat color="white" @click="snackbar = false">Close</v-btn>
 		</v-snackbar>
+		<v-snackbar v-model="snackbar" :timeout="4000" top color="success">
+			<offline @detected-condition="handleConnectivityChange">
+          <!-- Only renders when the device is online -->
+          
+          	<div slot="online">
+
+        <p>It looks like you're online! Here's all the things you can do...</p>
+         ...
+        </div>
+        <!-- Only renders when the device is offline -->
+        <div slot="offline">
+      <p>You appear to be offline, that's okay, we can still do things...</p>
+      ...
+    	</div>
+		</offline>
+    </v-snackbar>
+
 		<v-toolbar app class="primary">
 			<v-toolbar-side-icon class="grey--text" @click="drawer = !drawer"></v-toolbar-side-icon>
 			<v-toolbar-title class="text-uppercase grey--text">
@@ -29,7 +46,7 @@
 				<v-icon right>exit_to_app</v-icon>
 			</v-btn>
 		</v-toolbar>
-
+        
 		<v-navigation-drawer app v-model="drawer" class="primary">
 			<v-layout column align-center>
 				<v-flex class="mt-5">
@@ -60,11 +77,14 @@
 </template>
 
 <script>
-	import Popup from './Popup'
-  	import { AUTH_LOGOUT } from '../store/actions/auth'
-export default {
+	import Popup from './Popup';
+  	import { AUTH_LOGOUT } from '../store/actions/auth';
+  	import offline from 'v-offline';
+   
+   export default {
 	components: {
-		Popup
+		Popup,
+		offline
 	},
 	data(){
 		return{
@@ -81,6 +101,9 @@ export default {
       signOut: function () {
         this.$store.dispatch(AUTH_LOGOUT).then(() => this.$router.push('/login'))
       },
+      handleConnectivityChange(status) {
+      console.log(status);
+     },
     },
 }
 </script>

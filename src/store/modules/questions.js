@@ -1,4 +1,4 @@
-import apiCall from '../../utils/api'
+ import apiCall from '../../utils/api'
 
 const state = {
 	questions: []
